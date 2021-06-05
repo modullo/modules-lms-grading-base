@@ -25,10 +25,10 @@
 
 @section('body_content_main')
 
-    @include('modules-lms-base::navigation',['type' => 'learner'])
+    @include('modules-lms-base::navigation',['type' => 'tenant'])
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item ml-4"><a href="#">Home</a></li>
+            <li class="ml-4 breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active">Grade Student</li>
         </ol>
     </nav>
