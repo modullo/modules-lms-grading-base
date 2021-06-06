@@ -26,13 +26,13 @@
 @section('body_content_main')
 
     @include('modules-lms-base::navigation',['type' => 'learner'])
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item ml-4"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">All Notes</li>
-        </ol>
-    </nav>
     <div id="app">
+        <breadcrumbs 
+            :items="[
+                {url: 'https://google.com', title: 'Home', active: false},
+                {url: '', title: 'All Notes', active: true},
+            ]">
+        </breadcrumbs>
         <b-container>
             <b-row>
                 <b-col>
@@ -47,6 +47,7 @@
 @section('body_js')
 
     <script src="{{ asset('vendor/GradingBaseAssets/learners-notes/components/LearnersNotes.js') }}"></script>
+    <script src="{{ asset('vendor/breadcrumbs/BreadCrumbs.js') }}"></script>
     <script src="{{ asset('vendor/GradingBaseAssets/learners-notes/app.js') }}"></script>
     <script>
         ClassicEditor
