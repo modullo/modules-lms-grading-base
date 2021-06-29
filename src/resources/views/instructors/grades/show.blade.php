@@ -29,7 +29,7 @@
     <div id="app">
         <breadcrumbs 
         :items="[
-            {url: 'https://google.com', title: 'Home', active: false},
+            {url: '/tenant/dashboard', title: 'Home', active: false},
             {url: '', title: 'Grade Student', active: true},
         ]">
     </breadcrumbs>
