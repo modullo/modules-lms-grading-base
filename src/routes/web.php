@@ -9,6 +9,7 @@ Route::group(['namespace' => 'Modullo\ModulesLmsGradingBase\Http\Controllers','m
         Route::group(['prefix' => 'learner'],function(){
             Route::group(['prefix' => 'notes'],function() {
                 Route::get('', 'ModulesLmsGradingBaseController@allNotes');
+                Route::post('{module_id}', 'ModulesLmsGradingBaseController@storeNote');
             });
 
             Route::group(['prefix' => 'grades'],function() {

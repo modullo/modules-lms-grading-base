@@ -26,13 +26,8 @@
 @section('body_content_main')
 
     @include('modules-lms-base::navigation',['type' => 'learner'])
-    <nav>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item ml-4"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">User Lessons</li>
-        </ol>
-    </nav>
     <div id="app">
+        <breadcrumbs :items="breadcrumbData"></breadcrumbs>
         <b-container>
             <b-row>
                 <b-col>
@@ -46,6 +41,7 @@
 
 @section('body_js')
     <script src="{{ asset('vendor/GradingBaseAssets/user-view/components/UserLessonsGrades.js') }}"></script>
+    <script src="{{ asset('vendor/breadcrumbs/BreadCrumbs.js') }}"></script>
     <script src="{{ asset('vendor/GradingBaseAssets/user-view/app.js') }}"></script>
 @endsection
 

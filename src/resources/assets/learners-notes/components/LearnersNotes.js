@@ -1,11 +1,17 @@
 Vue.component('learners-notes', {
+    props: {
+        noteData: {
+            type: Object | Array,
+            // default: () => [],
+        }
+    },
     template: 
     `
     <div>
-        <h1 class="mt-5 font-weight-bold">You can Access All Your Notes Here</h1>
+        <h1 class="mt-5 font-weight-bold"> You can Access All Your Notes Here</h1>
         <b-row>
             <b-col lg="6">
-            <select id="mySelect" @change="filterNotes()" v-model="selectedNotes">
+            <select id="mySelect" @change="filterByModule()" v-model="selectedNotes">
                 <option>Kindly Select One Of Your Notes</option>
                 <option :value="option.value" v-for="(option, index) in options" :key="index">{{option.text}}</option>
             </select>
@@ -13,7 +19,7 @@ Vue.component('learners-notes', {
         </b-row>
         <hr>
         <div v-if="filterNotes().length > 0">
-            <b-card class="mb-3" v-for="(note, index) in filterNotes()" :key="index">
+            <b-card class="mb-3" v-for="(note, index) in noteData" :key="index">
                 <b-row>
                     <b-col md="6">
                         <div>
@@ -26,22 +32,17 @@ Vue.component('learners-notes', {
                             Hello, and welcome to the science of happiness.
                         </div>
                         <h6 class="font-weight-bold mt-3"> Your Note</h6>
-                        <div v-show="!visibility">       
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur a,
-                            ipsam repudiandae itaque doloribus perferendis rerum nostrum officia? Ratione, sunt minus 
+                        <div v-html="note.note"  v-show="!visibility">       
+                        
                         </div>
-                        <b-col v-show="visibility" style="padding: 0 !important">
-                            <div :id="'editor'+index">
-                            <p>Hello World!</p>
-                            <p>Some initial <strong>bold</strong> text</p>
-                            <p><br></p>
-                        </div>
+                        <b-col v-show="visibility" style="padding: 0 !important;">
+                            <editor v-model="note" style="height: 60px; width: 100%;" theme="snow"></editor>
                         </b-col>
                         <div class="mt-2" v-show="!visibility">
                             <b-button size="sm" @click="openEditor()"><b-icon icon="trash"></b-icon> Edit</b-button>
                             <b-button size="sm" class="ml-3"><b-icon icon="pencil-square"></b-icon> Delete</b-button>
                         </div>
-                        <div class="mt-2" v-show="visibility">
+                        <div style="margin-top: 4em!important;" v-show="visibility">
                             <b-button size="sm"><b-icon icon="cloud-upload"></b-icon> Save</b-button>
                             <b-button size="sm" @click="closeEditor()" class="ml-3"><b-icon icon="x-circle"></b-icon> Cancel</b-button>
                         </div>
@@ -103,9 +104,27 @@ Vue.component('learners-notes', {
             ],
             selectedNotes: 'Kindly Select One Of Your Notes',
             visibility: false,
+            note: '',
         }
     },
     methods: {
+        filterByModule(event) {
+            if (this.currentModule !== 'All Lessons') { 
+                this.currentModule = event.target.value
+                let loader = Vue.$loading.show()
+                axios.get(`lessons/all/${this.currentModule}`)
+                .then(res => {
+                    loader.hide();
+                    this.filteredData = res.data.data
+                    this.cardinfos = res.data.data
+                    return
+                }).catch(e => {
+                    loader.hide();
+                    console.log(e)
+                })
+            }
+            return this.noteData
+        },
         openEditor() {
             this.visibility = true
         },
