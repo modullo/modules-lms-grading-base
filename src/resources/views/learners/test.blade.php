@@ -23,8 +23,8 @@
 
 @section('body_js')
     <script src="{{ asset('LearningBase/owl.carousel.js') }}"></script>
-    <script src="{{ asset('vendor/assessment/components/CoursesCarousel.js') }}"></script>
-    <script src="{{ asset('vendor/assessment/app.js') }}"></script>
+    <script src="{{ asset('vendor/learning/components/CoursesCarousel.js') }}"></script>
+    <script src="{{ asset('vendor/learning/app.js') }}"></script>
     <script src=""></script>
 @endsection
 
